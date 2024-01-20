@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script>
+    <title>Calendário</title>
+</head>
+<body>
+    <div id="main-content">
+        <div class="calendar">
+            <div class="month">
+                <select id="select-month"></select>
+                <select id="select-year"></select>
+            </div>
+            <div class="weekdays-row">
+                <div class="weekday">Dom</div>
+                <div class="weekday">Seg</div>
+                <div class="weekday">Ter</div>
+                <div class="weekday">Qua</div>
+                <div class="weekday">Qui</div>
+                <div class="weekday">Sex</div>
+                <div class="weekday">Sáb</div>
+            </div>
+            <div class="days" id="calendar-days">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
