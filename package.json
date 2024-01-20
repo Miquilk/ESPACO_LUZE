@@ -1,0 +1,19 @@
+{
+  "name": "espaco_luze",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass":"sass --watch Site_espaco/sass:Site_espaco/css",
+    "server":"live-server --open=Site_espaco",
+    "dev": "concurrently \"npm run compile:sass\" \"npm run server\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "live-server": "^1.2.2",
+    "sass": "^1.70.0"
+  }
+}

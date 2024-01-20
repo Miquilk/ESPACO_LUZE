@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {  
 
-    const daysElement = document.getElementById("calendar-days");
-    const selectMonth = document.getElementById("select-month");
-    const selectYear = document.getElementById("select-year");
+    const daysElement = document.querySelector("#calendar-days");
+    const selectMonth = document.querySelector("#select-month");
+    const selectYear = document.querySelector("#select-year");
 
 
     updateMonthYear();
@@ -42,14 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateCalendar() {
         daysElement.innerHTML ="";
-        const selectedMonth = parseInt(selectMonth.value);
-        const selectedYear = parseInt(selectYear.value);
+        const selectedMonth = selectMonth.value;
+        const selectedYear = selectYear.value;
 
-        currentMonth = selectedMonth;
-        currentYear = selectedYear;
-
-        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-        const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
+        const lastDay = new Date(selectedYear, selectedMonth + 1, 0).getDate();
 
         for (let i = 0; i < firstDay; i++) {
             const emptyDay = document.createElement("div");
@@ -76,18 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const dayElement = document.getElementById(`day-${dayNumber}`);
 
         if (dayElement.classList.contains("day-selected")) {
-            displaySavedInfo(savedData[dayKey]);
+            displaySavedInfo(dayNumber);
         } else {
-            displayPopup(dayNumber);
+            displayPopup(dayNumber, dayElement);
         }
     }
 
-    function displayPopup(dayNumber) {
-        document.getElementById('main-content').classList.add('blur');
-        //const popupContainer = document.createElement("div");
-
+    function displayPopup(dayNumber, dayElement) {
+        document.getElementById('main-content').classList.add("blur");
+        
         const popupElement = document.createElement("div");
         popupElement.classList.add("popup");
+        popupElement.classList
         const popupContent = document.createElement("div");
         popupContent.classList.add("popup-content");   
         
@@ -105,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label for="value2">Haver:</label>
                 <input type="text" id="value2" name="value" required>
 
-                <button type="button" id="submitButton" class="submit-button" onclick="submitForm()">Enviar</button>
-                <button type="reset" class="close-button" onclick="closePopup()">Cancelar</button>
+                <button type="button" id="submitButton" class="submit-button">Enviar</button>
+                <button type="reset" class="close-button">Cancelar</button>
             </form>
             `;
 
@@ -114,53 +111,50 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.appendChild(popupElement);
         document.querySelector('.close-button').addEventListener('click', closePopup);
         
-        const enviarButton = document.querySelector('.submit-button');
+        const enviarButton = document.querySelector('#submitButton');
         enviarButton.addEventListener('click', function() {
-            submitForm(dayNumber);
+            const name = document.querySelector("#name").value
+            const time = document.querySelector("#time").value
+            const valueToPay = document.querySelector("#value").value
+            const paidValue = document.querySelector("#value2").value
+
+            console.log(name, time, valueToPay, paidValue)
+
+            localStorage.setItem(dayNumber, JSON.stringify({
+                name: name,
+                startTime: time,
+                remaining: valueToPay,
+                alreadyPaid: paidValue
+            }))
+
+            dayElement.classList.add("day-selected")
+            closePopup()
         });
+    }
+
+    function displaySavedInfo(dayNumber) {
+        const info = JSON.parse(localStorage.getItem(dayNumber))
+
+        const popupElement = document.createElement("div");
+        popupElement.classList.add("popup");
+        popupElement.classList
+        const popupContent = document.createElement("div");
+        popupContent.classList.add("popup-content");  
+        popupContent.innerHTML = `
+        <p>${dayNumber}</p>
+        <h1> Nome: ${info.name}</h1>
+        <p>Horário: ${info.startTime}</p>
+        <p>Valor para pagar: $${info.remaining}</p>
+        <p>Valor pago: $${info.alreadyPaid}</p>`
+        popupElement.appendChild(popupContent)
+        document.body.appendChild(popupElement);
     }
 
     function closePopup() {
         // Remove a classe de desfoque da div de conteúdo principal
-       document.getElementById('main-content').classList.remove('blur');
-       const popupElement = document.querySelector('.popup');
+        document.getElementById('main-content').classList.remove('blur');
+        const popupElement = document.querySelector('.popup');
         document.body.removeChild(popupElement);
     }
-
-    function submitForm(dayNumber) {
-        // var name = document.getElementById('name').value;
-        // var time = document.getElementById('time').value;
-        // var value = document.getElementById('value').value;
-        // var value2 = document.getElementById('value2').value;
-      
-        // // Referência para o nó 'forms' no Firebase Realtime Database
-        // var formsRef = firebase.database().ref('forms');
-      
-        // // Adiciona um novo nó com os dados do formulário
-        // formsRef.push({
-        //   day_Number: dayNumber,
-        //   name: name,
-        //   time: time,
-        //   value: value,
-        //   value2: value2
-        // });
-      
-        // Feche o popup após o envio do formulário
-        closePopup();
-      }
-      
-    
-    
-
-
-
-
-
-
-
-
-
 }
-
-    
 );

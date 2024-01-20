@@ -1,0 +1,170 @@
+@import './components/infoDay.scss';
+
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Garante que o corpo ocupa a altura total da viewport */
+}
+
+.main-content {
+  z-index: 1; /* Garante que esta div esteja abaixo do popup */
+}
+
+.weekdays-row {
+  display: flex;
+  justify-content: space-around;
+  background-color: #3498db;
+  box-shadow: 0 0 px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.weekday {
+  text-decoration: none;
+  flex: 1;
+  padding: 10px;
+  border-bottom: 1px solid #fff;
+  color: #333;
+}
+
+.weekday:first-child {
+  border-bottom: none;
+}
+
+.calendar {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  max-width: 85%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);   
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+
+.month {
+  background-color: #085385;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #ccc;
+}
+
+.weekday, .day {
+  flex: 1;
+  box-sizing: border-box; /* Inclui padding e borda na largura total */
+}
+
+.day {
+  margin: 5px;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.day:nth-child(7n) {
+  border-right: none;
+}
+
+.day:hover {
+  background-color: #085385;
+  color: #fff;
+  cursor: pointer;
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+select:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+select option {
+  background-color: #fff;
+  color: #333;
+}
+
+select option:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+select option:checked {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.popup {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #3498db;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.blur {
+  width: 100%;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* Adicione esses estilos ao seu arquivo de estilo CSS ou diretamente no cabeçalho HTML */
+
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Espaçamento entre os elementos do formulário */
+}
+
+.popup-content form button {
+  margin-top: 10px; /* Espaçamento acima do botão Enviar */
+}
+
+.popup-content button.close-button {
+  margin-top: 10px; /* Espaçamento acima do botão X */
+}
+
+.day-selected {
+  background-color: rgb(234, 77, 77);
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.day-content {
+  display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
+
+.dataTitle{
+  white-space: nowrap;
+}
